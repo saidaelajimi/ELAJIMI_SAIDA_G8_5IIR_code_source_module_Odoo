@@ -1,43 +1,97 @@
-# Odoo Module : Complaint Management
+# 🛠️ Module Odoo 17 : Gestion des Plaintes Clients
 
-## 📌 Description
-Ce projet est un module personnalisé pour **Odoo 17** permettant de gérer efficacement les plaintes des clients. Il a été développé dans le cadre du **LAB 2 - ERP**.
+<p align="center">
+  <img src="ScreenShots/emsi.png" width="300" alt="EMSI Logo">
+</p>
 
-L'application permet d'enregistrer des plaintes, de les catégoriser (Service, Produit, Autre) et de suivre leur cycle de vie à travers différents états.
+## 📌 Présentation du Projet
+Ce projet consiste en la création d'un module personnalisé pour **Odoo 17**, conçu pour moderniser et automatiser la gestion des réclamations clients. Développé dans le cadre du module **ERP (LAB 2)**, il illustre l'implémentation complète d'un processus métier au sein d'un ERP.
 
-## 🚀 Fonctionnalités
-- **Gestion des Plaintes** : Enregistrement du sujet, du client et de la description.
-- **Cycle de Vie (Workflow)** : Passage des états `Brouillon` (Draft) ➔ `Ouvert` (Open) ➔ `Résolu` (Resolved).
-- **Interface Ergonomique** : 
-  - Vue Liste avec badges colorés.
-  - Vue Formulaire détaillée avec barre de statut.
-  - Vue Recherche avec filtres par catégorie et statut.
-- **Sécurité** : Droits d'accès configurés pour les utilisateurs internes.
-
-## 🛠️ Installation avec Docker
-Le projet est entièrement containerisé pour faciliter le déploiement.
-
-1. **Démarrer les conteneurs** :
-   ```bash
-   docker-compose up -d
-   ```
-2. **Accéder à Odoo** : Rendez-vous sur `http://localhost:8069`.
-3. **Installer le module** :
-   - Activez le **Mode Développeur**.
-   - Allez dans **Applications** > **Mettre à jour la liste**.
-   - Recherchez "Complaint Management" et cliquez sur **Activer**.
-
-## 📂 Structure du Projet
-- `addons/complaint_management/` : Code source du module (Python, XML, CSV).
-- `ScreenShots/` : Captures d'écran de l'application.
-- `docker-compose.yml` : Configuration de l'environnement Odoo/PostgreSQL.
-
-## 📄 Documentation
-Le dossier contient également les rapports détaillés du projet :
-- [Rapport Markdown](.gemini/antigravity/brain/778dd700-9b10-4b30-9222-9bc5631269a8/LAB_2_Complaint_Management.md)
-- [Source LaTeX du Rapport](.gemini/antigravity/brain/778dd700-9b10-4b30-9222-9bc5631269a8/LAB_2_Complaint_Management.tex)
+> **Objectif :** Offrir une interface intuitive pour enregistrer, catégoriser et résoudre les plaintes tout en assurant une traçabilité complète.
 
 ---
-**Réalisé par :** Saida EL AJIMI  
-**Encadré par :** Mohammed Aitdaoud  
-**Année :** 2025-2026
+
+## 🏗️ Architecture Technique
+Le module repose sur une architecture **MVC (Modèle-Vue-Contrôleur)** standard d'Odoo :
+- **Backend :** Python 3.10+ (Framework Odoo)
+- **Frontend :** XML (QWeb Views)
+- **Base de données :** PostgreSQL 15/16
+- **Environnement :** Containerisation Docker & Docker Compose
+
+---
+
+## ✨ Fonctionnalités Clés
+
+### 📝 Gestion des Réclamations
+- **Formulaire complet :** Saisie du sujet, nom du client, date et description détaillée.
+- **Catégorisation :** Classification par type (Service, Produit, Autre) pour faciliter l'analyse.
+
+### 🔄 Workflow et États
+Suivi du cycle de vie d'une plainte grâce à un système d'états :
+- 🟢 **Brouillon (Draft)** : Nouvelle plainte saisie.
+- 🟡 **Ouvert (Open)** : Plainte en cours de traitement.
+- 🔵 **Résolu (Resolved)** : Solution apportée au client.
+
+### 🔍 Interface et Recherche
+- **Vues Personnalisées** :
+  - **Tree View** : Liste globale avec badges colorés selon le statut.
+  - **Form View** : Détails riches avec barre de progression de statut.
+- **Filtres Avancés** : Recherche par client, catégorie ou statut pour une navigation rapide.
+
+---
+
+## 📂 Structure du Module
+```bash
+complaint_management/
+├── __init__.py            # Initialisation Python
+├── __manifest__.py        # Métadonnées et dépendances
+├── models/
+│   ├── __init__.py
+│   └── complaint.py       # Définition du modèle de données
+├── views/
+│   └── complaint_views.xml # Menus, Actions et Vues (XML)
+└── security/
+    └── ir.model.access.csv # Droits d'accès (ACL)
+```
+
+---
+
+## � Installation Rapide
+
+### 1. Prérequis
+- Docker et Docker Compose installés sur votre machine.
+
+### 2. Lancement
+```bash
+# Lancer les conteneurs (Odoo + Postgre)
+docker-compose up -d
+```
+
+### 3. Activation du Module
+1. Connectez-vous à `http://localhost:8069`.
+2. Activez le **Mode Développeur** (dans les Paramètres).
+3. Naviguez vers le menu **Applications**.
+4. Cliquez sur **"Mettre à jour la liste des applications"**.
+5. Recherchez **"Complaint Management"** et cliquez sur **Activer**.
+
+---
+
+## � Aperçu du Module
+
+### Vue Liste (Dashboard)
+<img src="ScreenShots/screenshot_tree_view.png" width="800" alt="Tree View">
+
+### Formulaire de Création
+<img src="ScreenShots/screenshot_form_view.png" width="800" alt="Form View">
+
+---
+
+## 🎓 Équipe du Projet
+- **Réalisé par :** Saida EL AJIMI (G8_5IIR)
+- **Encadré par :** Mohammed Baitdaoud
+- **Année Académique :** 2025-2026
+
+---
+
+## 📑 Annexes
+- [📄 Télécharger le Rapport PDF Complet](SaidaElajimiG8_Rapport_Gestion_des_Plaintes_Clients.pdf)
