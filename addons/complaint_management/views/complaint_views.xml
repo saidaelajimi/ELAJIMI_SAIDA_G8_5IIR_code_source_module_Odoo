@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Window Action -->
+    <record id="action_complaint" model="ir.actions.act_window">
+        <field name="name">Gestion des plaintes </field>
+        <field name="res_model">complaint.complaint</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register a new complaint
+            </p>
+        </field>
+    </record>
+
+    <!-- Main Menu -->
+    <menuitem id="menu_complaint_root" 
+              name="Complaints" 
+              sequence="10"/>
+
+    <!-- Sub-menu -->
+    <menuitem id="menu_complaint_sub"
+              name="All Complaints"
+              parent="menu_complaint_root"
+              action="action_complaint"
+              sequence="10"/>
+
+    <!-- List View -->
+    <record id="view_complaint_tree" model="ir.ui.view">
+        <field name="name">complaint.complaint.tree</field>
+        <field name="model">complaint.complaint</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'draft'" decoration-warning="state == 'open'" decoration-success="state == 'resolved'">
+                <field name="name"/>
+                <field name="customer_name"/>
+                <field name="category"/>
+                <field name="date_created"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_complaint_form" model="ir.ui.view">
+        <field name="name">complaint.complaint.form</field>
+        <field name="model">complaint.complaint</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,open,resolved"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Complaint Subject"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="customer_name"/>
+                            <field name="category"/>
+                        </group>
+                        <group>
+                            <field name="date_created"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="description">
+                            <field name="description" placeholder="Describe the complaint..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_complaint_search" model="ir.ui.view">
+        <field name="name">complaint.complaint.search</field>
+        <field name="model">complaint.complaint</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="customer_name"/>
+                <field name="category"/>
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Open" name="open" domain="[('state', '=', 'open')]"/>
+                <filter string="Resolved" name="resolved" domain="[('state', '=', 'resolved')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Category" name="group_by_category" context="{'group_by':'category'}"/>
+                    <filter string="Status" name="group_by_state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>
